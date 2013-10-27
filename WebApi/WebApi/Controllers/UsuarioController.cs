@@ -15,7 +15,7 @@ namespace WebApi.Controllers
 
         const string SqlInsertUsuario = "INSERT INTO USUARIO ( Id, FacebookToken, Nome, Cidade, Estado, Idade ) values ( @id, @facebooktoken, @nome, @cidade, @estado, @idade )";
 
-        const string SqlInsertOcorrencia = "INSERT INTO OCORRENCIAUSUARIO ( Id, FacebookToken, TipoOcorrencia, SubtipoOcorrencia, data, status, linha ) values ( @id, @token, @tipo, @subtipo, @data, @status, @linha )";
+        const string SqlInsertOcorrencianull = "INSERT INTO OCORRENCIAUSUARIO ( Id, FacebookToken, TipoOcorrencia, data, status, linha ) values ( @id, @token, @tipo, @data, @status, @linha )";
 
 
         const string SqlUsuarioWhereToken = "SELECT * FROM USUARIO WHERE FacebookToken = @token";
@@ -178,7 +178,7 @@ namespace WebApi.Controllers
 
 
         [HttpPost]
-        public IEnumerable<Badbadgets> Ocorrencia(string token, int tipo, int subtipo, int status, string linha)
+        public IEnumerable<Badbadgets> Ocorrencia(string token, int tipo, int status, string linha)
         {
             var adoConn = new SqlConnection(ConnString);
             adoConn.Open();
@@ -193,12 +193,11 @@ namespace WebApi.Controllers
                 var cod = System.Convert.ToInt32(driD[0]) + 1;
                 driD.Close();
 
-                var adoCmdInsert = new SqlCommand(SqlInsertOcorrencia, adoConn);
+                var adoCmdInsert = new SqlCommand(SqlInsertOcorrencianull, adoConn);
 
                 adoCmdInsert.Parameters.AddWithValue("id", cod);
                 adoCmdInsert.Parameters.AddWithValue("token", token);
-                adoCmdInsert.Parameters.AddWithValue("tipo", tipo);
-                adoCmdInsert.Parameters.AddWithValue("subtipo", subtipo);
+                adoCmdInsert.Parameters.AddWithValue("tipo", tipo);                
                 adoCmdInsert.Parameters.AddWithValue("data", DateTime.Now);
                 adoCmdInsert.Parameters.AddWithValue("status", status);
                 adoCmdInsert.Parameters.AddWithValue("linha", linha);   
@@ -225,22 +224,22 @@ namespace WebApi.Controllers
                 lst.Add(ReiDoOnibus(adoConn, token));
             }
 
-            if (PrimeiraCritica(adoConn, token) != null && status == 1)
+            if (PrimeiraCritica(adoConn, token) != null && status == 0)
             {
                 lst.Add(PrimeiraCritica(adoConn, token));
             }
 
-            if (PrimeiroElogio(adoConn, token) != null && status == 0)
+            if (PrimeiroElogio(adoConn, token) != null && status == 1)
             {
                 lst.Add(PrimeiroElogio(adoConn, token));
             }
 
-            if (OCritico(adoConn, token) != null && status == 1)
+            if (OCritico(adoConn, token) != null && status == 0)
             {
                 lst.Add(OCritico(adoConn, token));
             }
 
-            if (PassageiroFeliz(adoConn, token) != null && status == 0)
+            if (PassageiroFeliz(adoConn, token) != null && status == 1)
             {
                 lst.Add(PassageiroFeliz(adoConn, token));
             }
@@ -250,7 +249,7 @@ namespace WebApi.Controllers
 
         private static Badbadgets PrimeiraCritica(SqlConnection adoConn, string token)
         {
-            var command = new SqlCommand("SELECT COUNT(*) FROM OCORRENCIAUSUARIO WHERE Status = 1 and FACEBOOKTOKEN = @token;", adoConn);
+            var command = new SqlCommand("SELECT COUNT(*) FROM OCORRENCIAUSUARIO WHERE Status = 0 and FACEBOOKTOKEN = @token;", adoConn);
 
             command.Parameters.Add(new SqlParameter() { DbType = DbType.String, Value = token, ParameterName = "token" });
 
@@ -271,7 +270,7 @@ namespace WebApi.Controllers
 
         private static Badbadgets PrimeiroElogio(SqlConnection adoConn, string token)
         {
-            var command = new SqlCommand("SELECT COUNT(*) FROM OCORRENCIAUSUARIO WHERE Status = 0 and FACEBOOKTOKEN = @token;", adoConn);
+            var command = new SqlCommand("SELECT COUNT(*) FROM OCORRENCIAUSUARIO WHERE Status = 1 and FACEBOOKTOKEN = @token;", adoConn);
 
             command.Parameters.Add(new SqlParameter() { DbType = DbType.String, Value = token, ParameterName = "token" });
 
@@ -315,7 +314,7 @@ namespace WebApi.Controllers
 
         private static Badbadgets OCritico(SqlConnection adoConn, string token)
         {
-            var command = new SqlCommand("select COUNT(*) from OcorrenciaUsuario where Status = 1 and FACEBOOKTOKEN = @token;", adoConn);
+            var command = new SqlCommand("select COUNT(*) from OcorrenciaUsuario where Status = 0 and FACEBOOKTOKEN = @token;", adoConn);
 
             command.Parameters.AddWithValue("token", token);
             var count = System.Convert.ToInt32(command.ExecuteScalar());
@@ -335,7 +334,7 @@ namespace WebApi.Controllers
 
         private static Badbadgets PassageiroFeliz(SqlConnection adoConn, string token)
         {
-            var command = new SqlCommand("select COUNT(*) from OcorrenciaUsuario where Status = 0 and FACEBOOKTOKEN = @token;", adoConn);
+            var command = new SqlCommand("select COUNT(*) from OcorrenciaUsuario where Status = 1 and FACEBOOKTOKEN = @token;", adoConn);
 
             command.Parameters.AddWithValue("token", token);
             var count = System.Convert.ToInt32(command.ExecuteScalar());

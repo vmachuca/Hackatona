@@ -1,5 +1,5 @@
 var usuario
-var HOSTAPI = "http://localhost/EuAndodeonibus/api/";
+var HOSTAPI = "http://10.1.1.53/EuAndodeonibus/api/";
 
 var script = document.createElement('script');
 script.async = true;
@@ -52,5 +52,5 @@ function salvarOcorenciaBd(callback) {
     var subtipo = 'null';
     if(subtipoSelecionadoCod != null) subtipo = subtipoSelecionadoCod;
     if(codLinhaSelecionado != null) linha = codLinhaSelecionado;
-    $.post(HOSTAPI + 'Usuario/Ocorrencia?token='+usuario.id+'&tipo='+tipoAvaliacao+'&status='+avaliacao+'&linha='+linha, function(result){callback(result)});
+    $.post(HOSTAPI + 'Ocorrencia?token='+usuario.id+'&tipo='+tipoAvaliacao+'&subtipo='+subtipo+'&status='+avaliacao+'&linha='+linha, function(result){callback(result)});
 };

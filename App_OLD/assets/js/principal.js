@@ -228,7 +228,7 @@ function salvarOcorrencia() {
             if(result == null)
                 mostraView('inicio');
             else
-                mostrarInsignia(result[0].Id);       
+                mostrarInsignia(result.Id);       
         });
         //hideOverlay();
         //bootbox.alert("Ocorrência #"+s[0].objectId+" criada com sucesso!"); 
