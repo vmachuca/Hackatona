@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="Buscar">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="x" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="y" type="s:double" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuscarResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BuscarResult" type="tns:Cobertura" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Cobertura">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="jss" type="tns:JavaScriptSerializer" />
+          <s:element minOccurs="1" maxOccurs="1" name="Erro" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="TipoErro" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NomeMunicipio" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IBGE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UF" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Municipio_Movel_Voz_GSM" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Municipio_Movel_Dados_3G" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Movel_Voz_GSM" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Movel_Fixo_FWT" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Movel_Web_FWT" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Movel_Dados_3G" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Movel_Dados_2G" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Fixa_Voz" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Fixa_Dados" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="ATCNL" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Distancia" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Velocidade_Fixa_Dados" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="TVA_Voz" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="TVA_Dados_Jato" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="TVA_TV" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Fibra_Voz" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Fibra_Dados" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Fibra_TV" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="DTH" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="JavaScriptSerializer">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="MaxJsonLength" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="RecursionLimit" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Cobertura" nillable="true" type="tns:Cobertura" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="BuscarSoapIn">
+    <wsdl:part name="parameters" element="tns:Buscar" />
+  </wsdl:message>
+  <wsdl:message name="BuscarSoapOut">
+    <wsdl:part name="parameters" element="tns:BuscarResponse" />
+  </wsdl:message>
+  <wsdl:message name="BuscarHttpGetIn">
+    <wsdl:part name="x" type="s:string" />
+    <wsdl:part name="y" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="BuscarHttpGetOut">
+    <wsdl:part name="Body" element="tns:Cobertura" />
+  </wsdl:message>
+  <wsdl:message name="BuscarHttpPostIn">
+    <wsdl:part name="x" type="s:string" />
+    <wsdl:part name="y" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="BuscarHttpPostOut">
+    <wsdl:part name="Body" element="tns:Cobertura" />
+  </wsdl:message>
+  <wsdl:portType name="SOAPServiceSoap">
+    <wsdl:operation name="Buscar">
+      <wsdl:input message="tns:BuscarSoapIn" />
+      <wsdl:output message="tns:BuscarSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="SOAPServiceHttpGet">
+    <wsdl:operation name="Buscar">
+      <wsdl:input message="tns:BuscarHttpGetIn" />
+      <wsdl:output message="tns:BuscarHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="SOAPServiceHttpPost">
+    <wsdl:operation name="Buscar">
+      <wsdl:input message="tns:BuscarHttpPostIn" />
+      <wsdl:output message="tns:BuscarHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SOAPServiceSoap" type="tns:SOAPServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Buscar">
+      <soap:operation soapAction="http://tempuri.org/Buscar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SOAPServiceSoap12" type="tns:SOAPServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Buscar">
+      <soap12:operation soapAction="http://tempuri.org/Buscar" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SOAPServiceHttpGet" type="tns:SOAPServiceHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="Buscar">
+      <http:operation location="/Buscar" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SOAPServiceHttpPost" type="tns:SOAPServiceHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="Buscar">
+      <http:operation location="/Buscar" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SOAPService">
+    <wsdl:port name="SOAPServiceSoap" binding="tns:SOAPServiceSoap">
+      <soap:address location="http://10.126.111.74/api/cobertura/SOAPService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SOAPServiceSoap12" binding="tns:SOAPServiceSoap12">
+      <soap12:address location="http://10.126.111.74/api/cobertura/SOAPService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SOAPServiceHttpGet" binding="tns:SOAPServiceHttpGet">
+      <http:address location="http://10.126.111.74/api/cobertura/SOAPService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SOAPServiceHttpPost" binding="tns:SOAPServiceHttpPost">
+      <http:address location="http://10.126.111.74/api/cobertura/SOAPService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

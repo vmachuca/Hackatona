@@ -1,0 +1,116 @@
+﻿@charset "utf-8";
+/* CSS Document */
+*{ 
+margin:0px;
+padding:0px; 
+}
+body {
+background-color: #E9E9E9;
+font-family: verdana;
+font-size: 11px;
+line-height: 13px;
+}
+.container {
+    background: url("../imagens/bg-vpl.png") repeat-y scroll 0 0 transparent;
+    display: table;
+    margin: 0 auto;
+    position: relative;
+    width: 1010px;
+}
+.container .header {
+    display: block;
+    height: 170px;
+    margin-left: 6px;
+    width: 956px;
+}
+
+.topo {
+    background: url("../imagens/bg_topo.jpg") no-repeat scroll left top transparent;
+    height: 170px;
+    position: relative;
+    width: 997px;
+    z-index: 80;
+}
+.container .topo h1 a {
+    background: none;
+    cursor: pointer;
+    display: block;
+    float: left;
+    height: 60px;
+    margin: 0 0 0 30px;
+    position: relative;
+    text-indent: -99999px;
+    top: 27px;
+    width: 145px;
+}
+.container .topo .linksSuperiores {
+    display: block;
+    height: 20px;
+    left: 870px;
+    margin: 5px 0 0;
+    overflow: hidden;
+    position: absolute;
+    top: -2px;
+    width: 125px;
+}
+.container .topo .linksSuperiores li {
+    border-left: 1px solid #FFFFFF;
+    display: inline;
+    margin-left: -1px;
+    padding: 1px 5px;
+}
+.container  .topo .linksSuperiores li a {
+    color: #FFFFFF;
+    font-family: arial,verdana,sans-serif;
+    font-size: 12px;
+	text-decoration:none;
+}
+.container  .topo .linksSuperiores li a:hover{
+	text-decoration:underline;
+	}
+.container .topo .img-logo {
+    float: right;
+    height: 62px;
+    position: absolute;
+    right: 11px;
+    top: 38px;
+    width: 164px;
+}
+.conteudo{
+   	float: left;
+    left: 6px;
+    position: relative;
+    width: 997px;
+}
+
+.container .footer {
+    margin-left: 6px;
+    width: 997px;
+}
+.footer  .rodape {
+    background: none repeat scroll 0 0 #006C9A;
+    clear: both;
+    float: left;
+    padding: 0 0 0 0;
+    position: relative;
+     width: 997px;
+}
+.rodape .assinatura {
+    float: left;
+    padding: 45px 0;
+    width: 996px;
+} 
+.rodape .assinatura p {
+    color: #FFFFFF;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    width: 996px;
+}
+
+.description {
+    padding-left: 80px;
+}
+.description ul{
+    padding-left: 40px;
+}

@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="BuscarMunicipios">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pUF" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuscarMunicipiosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BuscarMunicipiosResult" type="tns:ArrayOfMunicipio" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfMunicipio">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Municipio" nillable="true" type="tns:Municipio" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Municipio">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="IBGE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IBGE_N" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NomePadrao" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nome" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UF_Entrada" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GeocodeReverso">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="pX" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="pY" type="s:double" />
+            <s:element minOccurs="0" maxOccurs="1" name="pDistancia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pSisCoord" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GeocodeReversoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GeocodeReversoResult" type="tns:ArrayOfIGeocode" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfIGeocode">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="IGeocode" nillable="true" type="tns:IGeocode" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="IGeocode" abstract="true">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ObjectID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UF_Entrada" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Municipio_Entrada" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Endereco_Entrada" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Bairro_Entrada" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cep_Entrada" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Ponto_Entrada" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Candidatos_Entrada" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Prioridade_Entrada" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SisCoord_Entrada" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Zona_Entrada" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OutPut" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Latitude_Entrada" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Longitude_Entrada" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DistanciaBuffer_Entrada" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="POI" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="END_POI" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UF" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IBGE_N" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IBGE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Municipio" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Bairro" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CEP" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Tipo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Titulo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Logradouro" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="NumIni" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="NumFim" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Quilometro" nillable="true" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="X" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Y" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Prioridade" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Sis_Coord" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Zona" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Score" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Centro" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="Distancia" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EnderecoEncontrado" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="VivoEndereco">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:IGeocode" />
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArcGisOnlineEndereco">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:IGeocode" />
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="MapaCertoEndereco">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:IGeocode" />
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="BuscarEndereco">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pUF" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pMunicipio" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pEndereco" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pCep" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pPonto" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pSisCoord" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pCandidatos" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pPrioridade" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuscarEnderecoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BuscarEnderecoResult" type="tns:ArrayOfIGeocode" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ArrayOfMunicipio" nillable="true" type="tns:ArrayOfMunicipio" />
+      <s:element name="ArrayOfIGeocode" nillable="true" type="tns:ArrayOfIGeocode" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="BuscarMunicipiosSoapIn">
+    <wsdl:part name="parameters" element="tns:BuscarMunicipios" />
+  </wsdl:message>
+  <wsdl:message name="BuscarMunicipiosSoapOut">
+    <wsdl:part name="parameters" element="tns:BuscarMunicipiosResponse" />
+  </wsdl:message>
+  <wsdl:message name="GeocodeReversoSoapIn">
+    <wsdl:part name="parameters" element="tns:GeocodeReverso" />
+  </wsdl:message>
+  <wsdl:message name="GeocodeReversoSoapOut">
+    <wsdl:part name="parameters" element="tns:GeocodeReversoResponse" />
+  </wsdl:message>
+  <wsdl:message name="BuscarEnderecoSoapIn">
+    <wsdl:part name="parameters" element="tns:BuscarEndereco" />
+  </wsdl:message>
+  <wsdl:message name="BuscarEnderecoSoapOut">
+    <wsdl:part name="parameters" element="tns:BuscarEnderecoResponse" />
+  </wsdl:message>
+  <wsdl:message name="BuscarMunicipiosHttpGetIn">
+    <wsdl:part name="pUF" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="BuscarMunicipiosHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfMunicipio" />
+  </wsdl:message>
+  <wsdl:message name="GeocodeReversoHttpGetIn">
+    <wsdl:part name="pX" type="s:string" />
+    <wsdl:part name="pY" type="s:string" />
+    <wsdl:part name="pDistancia" type="s:string" />
+    <wsdl:part name="pSisCoord" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GeocodeReversoHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfIGeocode" />
+  </wsdl:message>
+  <wsdl:message name="BuscarEnderecoHttpGetIn">
+    <wsdl:part name="pUF" type="s:string" />
+    <wsdl:part name="pMunicipio" type="s:string" />
+    <wsdl:part name="pEndereco" type="s:string" />
+    <wsdl:part name="pCep" type="s:string" />
+    <wsdl:part name="pPonto" type="s:string" />
+    <wsdl:part name="pSisCoord" type="s:string" />
+    <wsdl:part name="pCandidatos" type="s:string" />
+    <wsdl:part name="pPrioridade" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="BuscarEnderecoHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfIGeocode" />
+  </wsdl:message>
+  <wsdl:message name="BuscarMunicipiosHttpPostIn">
+    <wsdl:part name="pUF" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="BuscarMunicipiosHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfMunicipio" />
+  </wsdl:message>
+  <wsdl:message name="GeocodeReversoHttpPostIn">
+    <wsdl:part name="pX" type="s:string" />
+    <wsdl:part name="pY" type="s:string" />
+    <wsdl:part name="pDistancia" type="s:string" />
+    <wsdl:part name="pSisCoord" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GeocodeReversoHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfIGeocode" />
+  </wsdl:message>
+  <wsdl:message name="BuscarEnderecoHttpPostIn">
+    <wsdl:part name="pUF" type="s:string" />
+    <wsdl:part name="pMunicipio" type="s:string" />
+    <wsdl:part name="pEndereco" type="s:string" />
+    <wsdl:part name="pCep" type="s:string" />
+    <wsdl:part name="pPonto" type="s:string" />
+    <wsdl:part name="pSisCoord" type="s:string" />
+    <wsdl:part name="pCandidatos" type="s:string" />
+    <wsdl:part name="pPrioridade" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="BuscarEnderecoHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfIGeocode" />
+  </wsdl:message>
+  <wsdl:portType name="SOAPServiceSoap">
+    <wsdl:operation name="BuscarMunicipios">
+      <wsdl:input message="tns:BuscarMunicipiosSoapIn" />
+      <wsdl:output message="tns:BuscarMunicipiosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GeocodeReverso">
+      <wsdl:input message="tns:GeocodeReversoSoapIn" />
+      <wsdl:output message="tns:GeocodeReversoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BuscarEndereco">
+      <wsdl:input message="tns:BuscarEnderecoSoapIn" />
+      <wsdl:output message="tns:BuscarEnderecoSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="SOAPServiceHttpGet">
+    <wsdl:operation name="BuscarMunicipios">
+      <wsdl:input message="tns:BuscarMunicipiosHttpGetIn" />
+      <wsdl:output message="tns:BuscarMunicipiosHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GeocodeReverso">
+      <wsdl:input message="tns:GeocodeReversoHttpGetIn" />
+      <wsdl:output message="tns:GeocodeReversoHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BuscarEndereco">
+      <wsdl:input message="tns:BuscarEnderecoHttpGetIn" />
+      <wsdl:output message="tns:BuscarEnderecoHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="SOAPServiceHttpPost">
+    <wsdl:operation name="BuscarMunicipios">
+      <wsdl:input message="tns:BuscarMunicipiosHttpPostIn" />
+      <wsdl:output message="tns:BuscarMunicipiosHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GeocodeReverso">
+      <wsdl:input message="tns:GeocodeReversoHttpPostIn" />
+      <wsdl:output message="tns:GeocodeReversoHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BuscarEndereco">
+      <wsdl:input message="tns:BuscarEnderecoHttpPostIn" />
+      <wsdl:output message="tns:BuscarEnderecoHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SOAPServiceSoap" type="tns:SOAPServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="BuscarMunicipios">
+      <soap:operation soapAction="http://tempuri.org/BuscarMunicipios" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GeocodeReverso">
+      <soap:operation soapAction="http://tempuri.org/GeocodeReverso" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarEndereco">
+      <soap:operation soapAction="http://tempuri.org/BuscarEndereco" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SOAPServiceSoap12" type="tns:SOAPServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="BuscarMunicipios">
+      <soap12:operation soapAction="http://tempuri.org/BuscarMunicipios" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GeocodeReverso">
+      <soap12:operation soapAction="http://tempuri.org/GeocodeReverso" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarEndereco">
+      <soap12:operation soapAction="http://tempuri.org/BuscarEndereco" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SOAPServiceHttpGet" type="tns:SOAPServiceHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="BuscarMunicipios">
+      <http:operation location="/BuscarMunicipios" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GeocodeReverso">
+      <http:operation location="/GeocodeReverso" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarEndereco">
+      <http:operation location="/BuscarEndereco" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SOAPServiceHttpPost" type="tns:SOAPServiceHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="BuscarMunicipios">
+      <http:operation location="/BuscarMunicipios" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GeocodeReverso">
+      <http:operation location="/GeocodeReverso" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarEndereco">
+      <http:operation location="/BuscarEndereco" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SOAPService">
+    <wsdl:port name="SOAPServiceSoap" binding="tns:SOAPServiceSoap">
+      <soap:address location="http://10.126.111.74/api/geocode/SOAPService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SOAPServiceSoap12" binding="tns:SOAPServiceSoap12">
+      <soap12:address location="http://10.126.111.74/api/geocode/SOAPService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SOAPServiceHttpGet" binding="tns:SOAPServiceHttpGet">
+      <http:address location="http://10.126.111.74/api/geocode/SOAPService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SOAPServiceHttpPost" binding="tns:SOAPServiceHttpPost">
+      <http:address location="http://10.126.111.74/api/geocode/SOAPService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,127 @@
+
+/*-------------------------------------------------- */
+/*  Fields */
+/*-------------------------------------------------- */
+
+.criticalEvents tr td
+{
+    font-size: 9pt;
+    width: 200px;
+}
+.criticalEvents tr.odd
+{
+    background-color: #ffffff;
+}
+.criticalEvents tr.pair
+{
+    background-color: #8bbdd2;
+}
+.criticalEvents tr td,.criticalEvents tr th
+{
+    text-align:center;
+}
+
+.criticalEvents tr th
+{
+    background-color: #000000;
+    font-weight: bold;
+}
+.criticalEvents tr th div
+{
+    color: #ffffff;
+    font-weight: bold;
+}
+.criticalEvents tr th a
+{
+    color: Red;
+    font-size: 10pt;
+    font-weight:bold;
+}
+.criticalEvents tr td div
+{
+    color: #000000;
+    font-weight: bold;
+}
+.criticalEvents tr td span
+{
+    color: #000000;
+    font-size: 10pt;
+    font-weight:bold;
+}
+.criticalEvents tr td span a
+{
+    color: #a60000;
+    font-size: 10pt;
+    font-weight:bold;
+}
+
+/*-------------------------------------------------- */
+/*  Tabs */
+/*-------------------------------------------------- */
+
+.tabRed
+{
+    background: #870000 url(images/ui/background_870000.png) 50% 50% repeat-x !important; 
+}
+.tabRed:hover
+{
+    background: #cb0000 url(images/ui/background_cb0000.png) 50% 50% repeat-x !important;
+}
+.tabRed a
+{
+    color: #ffffff !important;
+}
+
+.tabYellow
+{
+    background: #dadd00 url(images/ui/background_dadd00.png) 50% 50% repeat-x !important; 
+}
+.tabYellow:hover
+{
+    background: #b5b800 url(images/ui/background_b5b800.png) 50% 50% repeat-x !important;
+}
+.tabYellow a
+{
+    color: #ffffff !important;
+}
+
+.tabGreen
+{
+    background: #45d600 url(images/ui/background_45d600.png) 50% 50% repeat-x !important; 
+}
+.tabGreen:hover
+{
+    background: #2c8900 url(images/ui/background_2c8900.png) 50% 50% repeat-x !important;
+}
+.tabGreen a
+{
+    color: #ffffff !important;
+}
+
+/*-------------------------------------------------- */
+/*  Timer */
+/*-------------------------------------------------- */
+
+.timerClock
+{
+    display: inline-block;
+    height: 36px;
+    width: 48px;
+    border-radius:7px; 
+    border:1px solid black; 
+    font-size: 23pt;
+    font-weight: bold;
+    line-height:100%;
+}
+.timerClock:hover
+{
+    color: Red;
+    cursor:pointer;
+}
+.timerClockLabel
+{
+    display: inline-block;
+    width: 48px;
+    font-weight: bold;
+    text-align:center;
+}

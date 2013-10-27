@@ -1,0 +1,5 @@
+﻿<%@ ServiceHost 
+Language="C#" 
+Debug="true" 
+Service="Core.Web.RestService.RestJsonp" 
+Factory="System.ServiceModel.Activation.WebScriptServiceHostFactory" %>

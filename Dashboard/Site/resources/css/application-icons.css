@@ -1,0 +1,40 @@
+/*-------------------------------------------------- */
+/*  Header Buttons */
+/*-------------------------------------------------- */
+
+.headerButton-magnify {
+    background: url(../images/header/buttons/magnify_16x16.png) no-repeat;
+}
+
+.headerButton-pan {
+    background: url(../images/map/toolbar/navigation/pan.png) no-repeat;
+}
+
+.headerButton-zoomin {
+    background: url(../images/map/toolbar/navigation/zoomin.png) no-repeat;
+}
+
+.headerButton-zoomout {
+    background: url(../images/map/toolbar/navigation/zoomout.png) no-repeat;
+}
+
+.headerButton-antenna {
+    background: url(../images/map/business/antenna.png) no-repeat;
+}
+
+.headerButton-timer {
+    background: url(../images/map/business/timer.png) no-repeat;
+}
+
+
+/*-------------------------------------------------- */
+/*  Form Buttons */
+/*-------------------------------------------------- */
+
+.formButton-play {
+    background: url(../images/map/business/play.png) no-repeat !important;
+}
+
+.formButton-stop {
+    background: url(../images/map/business/stop.png) no-repeat !important;
+}
