@@ -7,6 +7,9 @@ var avaliacao;
 var tipoAvaliacao;
 var viewCurrent = 'inicio';
 var viewcHistory = 'inicio';
+var codLinhaSelecionado;
+var subtipoSelecionado;
+var subtipoSelecionadoCod;
 
 var ONIBUS = 0;
 var PONTO = 1;
@@ -18,6 +21,7 @@ $(document).ready(function() {
     mapeiaBotoes();
     $("html").niceScroll({cursorcolor:"#fff"});
     $('input.myClass').prettyCheckable();
+    hideOverlay();
 });
 
 $('.nav-collapse .nav > li > a').click(function() {
@@ -27,16 +31,23 @@ $('.nav-collapse .nav > li > a').click(function() {
 
 function mapeiaBotoes() {
     
+    
+    $('#btnfb').click(function(){
+        fblogin();
+    })
+    
     $('#btnLogin').click(function(){
         fblogin();
     })
     
     $('#btnBus').click(function(){
+        if(!validarLogado())return;
         tipoAvaliacao = ONIBUS;
         mostraView('avaliacao');
     })
     
     $('#btnPonto').click(function(){
+        if(!validarLogado())return;
         tipoAvaliacao = PONTO;
         mostraView('avaliacao');
     });
@@ -60,13 +71,33 @@ function mapeiaBotoes() {
         $('#criteriaBusca').show();
     });
     
+    $('#btnConfLinha').click(function(){
+        mostraView('mapa');
+    });
+    
     $('#btnConf').click(function(){
         salvarOcorrencia();
     });
-     
+    
+    $('.op').click(function(){
+        subtipoSelecionado = selecionaSubtipo(this);
+        mostraView(tipoAvaliacao == ONIBUS ? 'selOnibus' : 'mapa');
+    });
+    
     $('.voltar').click(function(){
         mostraView(viewcHistory);
     });
+}
+
+function validarLogado() {
+    codLinhaSelecionado = null;
+    subtipoSelecionado = null;
+    subtipoSelecionadoCod = null;
+    if(usuario == undefined || usuario == null) {
+        bootbox.alert("Faça o login com o facebook primeiramente.");
+        return false;
+    }
+    return true;
 }
 
 function mostraView(view) {
@@ -77,54 +108,146 @@ function mostraView(view) {
     if(view == 'mapa') showMapView();
 }
 
-function executarBuscaLinha(valorPesquisa, latlong, isSentidoBairro) {
-    /*
-    $.ajax("http://andodeonibus.cloudapp.net/api/Linha/LocalizaLinhas?lat=10&lon=12", function(data) {
+function mostrarInsignia(id) {
+    mostraView('newBedge');
+    if(id == 2) {
+    }
+        if(id == 2) {
+    }
+        if(id == 2) {
+    }
+}
 
-        $.foreach(data.itens, function(intem){
-            //$('#ltResultados').append('<p class="linhac" rel="">Linha <strong>'++'</strong></p>');
+function executarBuscaLinha(valorPesquisa, latlong, isSentidoBairro) {
+    if(valorPesquisa == "") {
+        bootbox.alert("Preencha o código da linha");
+        return;
+    }
+    
+    showOverlay();
+    
+    $('#ltResultados').empty();
+    var query = new esri.tasks.Query();
+    query.text = valorPesquisa;
+    query.outFields = ["*"];
+    var queryTask = new esri.tasks.QueryTask("http://10.1.1.213/ArcGIS/rest/services/ONIBUS/MapServer/2");
+    queryTask.execute(query, function(featureSet){ 
+        if(featureSet.features.length == 0) {
+            hideOverlay();
+            bootbox.alert("Nenhuma linha foi encontrada");
+            return;
+        }
+    
+        $('.resultCount').empty().append(featureSet.features.length+' linha(s) encontrada(s)');
+        
+        $.each(featureSet.features, function(){
+            var cdLinha = this.attributes["CD_LINHA"];
+            var letreiro = this.attributes["LETREIRO"];
+            $('#ltResultados').append('<p class="linhac" rel="'+cdLinha+'">Letreiro <strong>'+letreiro+'</strong></p>');
+        })
+        
+        $(".linhac").click(function(){
+            $(".linhac").removeClass('linhacs');
+            $(this).addClass('linhacs');
+            codLinhaSelecionado = $(this).attr('rel');
         });
-          
+        
         $('#criteriaBusca').hide();
         $('#resultadoBusca').show();
-        
-        $('.linhac').click(function(){
-            alert(1111);
-        });
-    });*/
-    
-    $.ajax({
-            url: "http://andodeonibus.cloudapp.net/api/Linha/LocalizaLinhas?lat=10&lon=12",
-            type: 'GET',
-            error: function (e) { 
-                    alert(e);
-            },
-            success: function(obj) {
-                console.log(obj);
-            }
-        });
+        hideOverlay();
+    });
 }
 
 function showMapView() {
-    require(["esri/map", "esri/layers/FeatureLayer", "esri/dijit/InfoWindowLite", "dojo/domReady!"], 
-            function(Map, FeatureLayer, InfoWindowLite) {
+    showOverlay();
+    
+    dojo.require("esri.tasks.query");
+    
+    require(["esri/map", 
+             "esri/layers/FeatureLayer",
+             "esri/graphic",    
+             "esri/dijit/InfoWindowLite", 
+             "dojo/domReady!"], 
+            function(Map, FeatureLayer, Graphic, InfoWindowLite) {
         mapa = new Map("mapaDiv", {
           basemap: "topo",
           sliderStyle: "small"
         });
-    
-        ftOcorrencia = new 
-            FeatureLayer("http://services2.arcgis.com/Yqsg32QMynROaTjv/arcgis/rest/services/avaliacao/FeatureServer/0");
                 
         dojo.connect(mapa, "onLoad", function () {
             setHTML5Location();
         });
+    
+        ftOcorrencia = new 
+            FeatureLayer("http://services2.arcgis.com/Yqsg32QMynROaTjv/arcgis/rest/services/avaliacao/FeatureServer/0");    
     });
 }
 
-
 function salvarOcorrencia() {
-    //currentMapPoint 
-    ftOcorrencia
+    showOverlay();
+    var attr = {
+        "ID_USUARIO":usuario.id,
+        "TIPO_AVALIACAO":avaliacao == POSITIVO ? "OK" : "NOK",
+        "DATA_HORA":new Date().getTime(),
+        "TIPO_OCO":tipoAvaliacao == ONIBUS ? "ONIBUS" : "PONTO",
+        "SUBTIPO_OCO":subtipoSelecionado == null ? "" : subtipoSelecionado,
+        "SENTIDO":"",
+        "LINHA":codLinhaSelecionado == null ? "" : codLinhaSelecionado,
+    };
+    var ocorrencia = new esri.Graphic(currentMapPoint, null, attr, null);
+    ftOcorrencia.applyEdits([ocorrencia], null, null, function(s){
+        /*salvarOcorencia(function(result){
+            hideOverlay();
+            bootbox.alert("Ocorrência #"+s[0].objectId+" criada com sucesso!"); 
+            
+            if(result == null)
+                mostraView('inicio');
+            else
+                
+        })*/
+        
+        hideOverlay();
+            bootbox.alert("Ocorrência #"+s[0].objectId+" criada com sucesso!"); 
+            mostraView('inicio');
+    }, function(err){
+        hideOverlay();
+        bootbox.alert("Ocorreu um erro para salvar a ocorrência.");    
+    });
+}                            
+
+function selecionaSubtipo(item) {
+    subtipoSelecionadoCod = item.id.substring(2);
+    var codigo = subtipoSelecionadoCod;
     
+    if(tipoAvaliacao == ONIBUS){
+        if(codigo == 1)
+            return 'DEFEITOS';
+        else if(codigo == 2)
+            return 'SUPERLOTADO';
+        else if(codigo == 3)
+            return 'NAO PAROU';
+        else
+            return 'FALTA DE URBANIDADE';
+    }
+    
+    if(codigo == 1)
+        return 'SUJO';
+    else if(codigo == 2)
+        return 'SUPERLOTADO';
+    else if(codigo == 3)
+        return 'TETO QUEBRADO';
+    else if(codigo == 4)
+        return 'BANCO QUEBRADO';
+    else if(codigo == 5)
+        return 'ONIBUS ATRASADO';
+    else
+        return 'MAL ILUMINADO';
+}
+
+function showOverlay() {
+    $('#overlayapp').show();
+}
+
+function hideOverlay() {
+    $('#overlayapp').hide();
 }

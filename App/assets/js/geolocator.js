@@ -28,8 +28,6 @@ function processGeolocationResult(position) {
     html5Lon = position.coords.longitude;
     html5TimeStamp = position.timestamp;
     html5Accuracy = position.coords.accuracy;
-
-    //console.log("Sucesso " + html5Lat + ", " + html5Lon);
     
     if (html5Lat != null && html5Lon != null) {
         zoomToLocation(html5Lat, html5Lon);
@@ -56,5 +54,5 @@ function showLocation(myLat,myLong,mapPoint) {
 
     mapa.graphics.clear();
     mapa.graphics.add(pictureGraphic);
-
+    hideOverlay();
 }

@@ -1,4 +1,5 @@
 var usuario
+var HOSTAPI = "http://10.1.1.45/EuAndodeonibus/api/";
 
 var script = document.createElement( 'script' );
 script.async = true;
@@ -17,21 +18,42 @@ window.fbAsyncInit = function() {
 
 
 function fblogin() {
+    showOverlay();
     FB.login( function ( response ) {
         if ( response.authResponse ) {
             try {
-
                 FB.api( '/me', function ( response ) {
-                    alert( 'success: ' + response.name );
+                    //alert( 'success: ' + response.name );
                     usuario = response;
+                    salvarUsuario();
+                    $('#ola').empty().append('Olá '+usuario.first_name+', o que deseja avaliar?');
+                    $('#loginfb').hide();
+                    $('#inicio').show();
+                    hideOverlay();
                 } );
             } catch ( error ) {
+                hideOverlay();
                 alert( 'error: ' + error );
             };
         } else {
+            hideOverlay();
             alert( 'unauthorized' );
         };
     }, { scope: 'email' } );
 
 };
 
+function salvarUsuario() {
+    var cidade = 'null';
+    if(usuario.hometown != undefined) cidade = usuario.hometown.name; 
+    $.post(HOSTAPI + 'Usuario/Cadastra?token='+usuario.id+'0&nome='+usuario.name+'&cidade='+cidade +'&estado=null&idade=0', function(result){});
+};
+
+function salvarOcorencia(callback) {
+    var linha = 'null';
+    var subtipo = 'null';
+    if(subtipoSelecionadoCod != null) subtipo = subtipoSelecionadoCod;
+    if(codLinhaSelecionado != null) linha = codLinhaSelecionado;
+    if(usuario.hometown != undefined) cidade = usuario.hometown.name; 
+    $.post(HOSTAPI + 'Ocorrencia?token='+usuario.id+'&tipo='+tipoAvaliacao+'&subtipo='+subtipo+'&status='+avaliacao+'&linha='+linha, function(result){callback(result)});
+};

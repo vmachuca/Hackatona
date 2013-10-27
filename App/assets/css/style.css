@@ -28,6 +28,42 @@ padding-top:20px;
 text-align:justify;
 }
 
+#overlayapp {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    filter:alpha(opacity=90);
+    -moz-opacity:0.9;
+    -khtml-opacity: 0.9;
+    opacity: 0.9;
+    z-index: 10000;
+}
+
+#loading {
+    color: #fff;
+    display: inline;
+    text-align: center;
+    font-weight: bold;
+}
+
+.hideoverlayapp {
+    display: none;
+    margin-top: -99999999px;
+}
+
+div.centered {
+position: fixed;
+    width: 100px;
+    height: 50px;
+    top: 50%;
+    left: 50%;
+    margin-top: -25px;
+    margin-left: -50px;
+}
+
 
 /* HEADER
 ============================*/
@@ -103,7 +139,7 @@ max-width: 100%; /* Add !important if needed. */
 height: auto;    /* Add !important if needed. */
 }
 
-#avaliacao, #mapa, #selOnibus, #resultadoBusca, #tPonto, #tOnibus {
+#inicio, #avaliacao, #mapa, #selOnibus, #resultadoBusca, #tPonto, #tOnibus, #newBedge, .bd, #foto {
 display:none;
 }
 #mapaDiv {
@@ -114,7 +150,14 @@ display:none;
 /* SECTIONS
 ===========================*/
 
-.linhac { color:#000!important;}
+.linhac { 
+    color:#000!important;
+    cursor:pointer;
+}
+
+.linhacs { 
+    background:#1dbb90!important;
+}
 
 #Section-1{
 background:#fc5242;
