@@ -2,6 +2,7 @@ var mapa;
 var ftOcorrencia;
 var html5Lat;
 var html5Lon;
+var temFoto;
 
 var avaliacao;
 var tipoAvaliacao;
@@ -21,6 +22,7 @@ $(document).ready(function() {
     mapeiaBotoes();
     $("html").niceScroll({cursorcolor:"#fff"});
     $('input.myClass').prettyCheckable();
+    $('input[type=file]').bootstrapFileInput();
     hideOverlay();
 });
 
@@ -81,6 +83,19 @@ function mapeiaBotoes() {
     
     $('.op').click(function(){
         subtipoSelecionado = selecionaSubtipo(this);
+        
+        if(avaliacao == POSITIVO)
+            mostraView(tipoAvaliacao == ONIBUS ? 'selOnibus' : 'mapa');
+        else
+            mostraView('foto');
+    });
+    
+    $('#btnEnviarFoto').click(function(){
+        temFoto = true; 
+        mostraView(tipoAvaliacao == ONIBUS ? 'selOnibus' : 'mapa');
+    });
+    
+    $('#btnFotoPular').click(function(){
         mostraView(tipoAvaliacao == ONIBUS ? 'selOnibus' : 'mapa');
     });
     
@@ -90,6 +105,7 @@ function mapeiaBotoes() {
 }
 
 function validarLogado() {
+    temFoto = false;
     codLinhaSelecionado = null;
     subtipoSelecionado = null;
     subtipoSelecionadoCod = null;
@@ -109,13 +125,18 @@ function mostraView(view) {
 }
 
 function mostrarInsignia(id) {
+    $('.bd').hide();
+    if(id == 0)
+        $('.bc').show();
+    else if(id == 1)
+        $('.be').show();
+    else if(id == 2)
+        $('.bk').show();
+    else if(id == 3)
+        $('.bp').show();
+    else
+        $('.bh').show();
     mostraView('newBedge');
-    if(id == 2) {
-    }
-        if(id == 2) {
-    }
-        if(id == 2) {
-    }
 }
 
 function executarBuscaLinha(valorPesquisa, latlong, isSentidoBairro) {
@@ -196,19 +217,23 @@ function salvarOcorrencia() {
     };
     var ocorrencia = new esri.Graphic(currentMapPoint, null, attr, null);
     ftOcorrencia.applyEdits([ocorrencia], null, null, function(s){
-        /*salvarOcorencia(function(result){
+        
+        if(temFoto)
+            ftOcorrencia.addAttachment(s[0].objectId, document.getElementById('formFoto'));
+        
+        salvarOcorenciaBd(function(result){
             hideOverlay();
             bootbox.alert("Ocorrência #"+s[0].objectId+" criada com sucesso!"); 
             
             if(result == null)
                 mostraView('inicio');
             else
-                
-        })*/
+                mostrarInsignia(result.Id);       
+        });
+        //hideOverlay();
+        //bootbox.alert("Ocorrência #"+s[0].objectId+" criada com sucesso!"); 
+        //mostraView('inicio');
         
-        hideOverlay();
-            bootbox.alert("Ocorrência #"+s[0].objectId+" criada com sucesso!"); 
-            mostraView('inicio');
     }, function(err){
         hideOverlay();
         bootbox.alert("Ocorreu um erro para salvar a ocorrência.");    

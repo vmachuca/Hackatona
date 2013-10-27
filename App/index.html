@@ -214,9 +214,9 @@
                 <p class="lead">
             </div> 
         </div>
-        <form id="myForm6"><input type="file" name="attachment"/></form>
-        <p><a class="btn btn-large btn-block" href="#">Enviar <i class="icon-bullhorn"></i></a>
-        <p><a class="btn btn-large btn-block" href="#">Pular <i class="icon-bullhorn"></i></a>
+        <form id="formFoto"><input type="file" name="attachment"  title="Procurar foto para enviar"/></form><br><br><br><br>
+        <p><a id="btnEnviarFoto" class="btn btn-large btn-block" href="#">Enviar <i class="icon-download-alt"></i></a>
+        <p><a id="btnFotoPular" class="btn btn-large btn-block" href="#">Pular <i class="icon-circle-arrow-right"></i></a>
     </div>
  </section> 
  <!-- / FOTO -->
@@ -246,6 +246,14 @@
             </div> 
         </div>	
          <div class="row-f text-center" style="margin: 0 auto;">
+            <div class="span3 bd bc">
+                <img src="images/badge-primeiro.png" width="220" height="220" class="img-circle">
+                <h3>Sua primeira crítica</h3><p></p>
+            </div>
+            <div class="span3 bd be">
+                <img src="images/badge-primeiro.png" width="220" height="220" class="img-circle">
+                <h3>Seu primeiro elogio</h3><p></p>
+            </div>
             <div class="span3 bd bk">
                 <img src="images/badge-kingbus.png" width="220" height="220" class="img-circle">
                 <h3>Rei do ônibus</h3><p></p>
@@ -260,7 +268,7 @@
             </div>
         </div>
         <br><br>
-        <p><a class="btn btn-large btn-block voltar" href="#"><i class="icon-chevron-left"></i> Voltar ao inicio</a></p>
+        <p><a class="btn btn-large btn-block voltarIni" href="#"><i class="icon-chevron-left"></i> Voltar ao inicio</a></p>
     </div>
  </section> 
  <!-- / BEDGE -->
@@ -311,7 +319,8 @@
 <script src="assets/js/jquery.js" type="text/javascript"></script> 
 <script src="assets/js/prettyCheckable.js" type="text/javascript"></script>
 <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="assets/js/bootbox.min.js" type="text/javascript"></script>     
+<script src="assets/js/bootbox.min.js" type="text/javascript"></script>
+<script src="assets/js/bootstrap.file-input.js" type="text/javascript"></script>       
 <script src="assets/js/jquery.localscroll-1.2.7-min.js" type="text/javascript" ></script>
 <script src="assets/js/jquery.nicescroll.min.js" type="text/javascript"></script>
 <script src="assets/js/geolocator.js" type="text/javascript"></script> 
