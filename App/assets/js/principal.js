@@ -102,6 +102,10 @@ function mapeiaBotoes() {
     $('.voltar').click(function(){
         mostraView(viewcHistory);
     });
+    
+    $('.voltarIni').click(function(){
+        mostraView('inicio');
+    });
 }
 
 function validarLogado() {
