@@ -174,6 +174,36 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App\assets\css\bootstrap-responsive.css" />
+    <Content Include="App\assets\css\bootstrap.css" />
+    <Content Include="App\assets\css\font-awesome-ie7.min.css" />
+    <Content Include="App\assets\css\font-awesome.min.css" />
+    <Content Include="App\assets\css\prettyCheckable-blue.png" />
+    <Content Include="App\assets\css\pricing.css" />
+    <Content Include="App\assets\css\style.css" />
+    <Content Include="App\assets\font\fontawesome-webfont.svg" />
+    <Content Include="App\assets\ico\favicon.ico" />
+    <Content Include="App\assets\js\bootbox.min.js" />
+    <Content Include="App\assets\js\bootstrap.min.js" />
+    <Content Include="App\assets\js\fb.js" />
+    <Content Include="App\assets\js\geolocator.js" />
+    <Content Include="App\assets\js\jquery.js" />
+    <Content Include="App\assets\js\jquery.localscroll-1.2.7-min.js" />
+    <Content Include="App\assets\js\jquery.nicescroll.min.js" />
+    <Content Include="App\assets\js\jquery.parallax-1.1.3.js" />
+    <Content Include="App\assets\js\jquery.scrollTo.min.js" />
+    <Content Include="App\assets\js\prettyCheckable.js" />
+    <Content Include="App\assets\js\principal.js" />
+    <Content Include="App\avaliar.html" />
+    <Content Include="App\images\bus-flat.png" />
+    <Content Include="App\images\busm.png" />
+    <Content Include="App\images\busstop-flat.png" />
+    <Content Include="App\images\dislike.png" />
+    <Content Include="App\images\like.png" />
+    <Content Include="App\images\PIN-DISLIKE.png" />
+    <Content Include="App\images\PIN-LIKE.png" />
+    <Content Include="App\index.html" />
+    <Content Include="App\ondeesta.html" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -242,6 +272,14 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\HelpPageApiModel.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
+    <Content Include="App\.DS_Store" />
+    <Content Include="App\assets\.DS_Store" />
+    <Content Include="App\assets\font\fontawesome-webfont-.eot" />
+    <Content Include="App\assets\font\fontawesome-webfont-v=3.1.0.eot" />
+    <Content Include="App\assets\font\fontawesome-webfont-v=3.1.0.ttf" />
+    <Content Include="App\assets\font\fontawesome-webfont-v=3.1.0.woff" />
+    <Content Include="App\images\.DS_Store" />
+    <Content Include="App\images\thumbs.db" />
     <None Include="Properties\PublishProfiles\LOCAL.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />

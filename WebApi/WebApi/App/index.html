@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Eu ando de ônibus</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Imagem">
+
+    <link rel="stylesheet" href="http://js.arcgis.com/3.7/js/esri/css/esri.css">
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="assets/css/pricing.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+
+
+<link href="assets/css/font-awesome.min.css" rel="stylesheet"> 
+<!--[if lt IE 7]>
+	<link href="assets/css/font-awesome-ie7.min.css" rel="stylesheet">
+	<![endif]-->
+<!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+<!-- Le fav and touch icons -->
+
+<body data-spy="scroll" data-target=".top-spy">
+ 
+<!-- HEADER --> 
+  <header id="head-top">
+	
+    <div class="navbar navbar-fixed-top navbar-inverse">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="index.htm#head-top"><img src="images/busm.png" class="logoicon"> Eu ando de ônibus</a>
+          <div class="nav-collapse collapse top-spy">
+            <ul class="nav" id="topnav">
+			  <li>
+                  <a id="btnLogin" href="#">Login</a>
+                  <div id="fb-root"></div>
+             </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>	  
+	</header>
+<!-- / HEADER -->
+
+
+<!-- INICIO -->
+<section id="inicio" class="Section-2">
+    <div class="container">
+        <div class="row">
+            <div class="span12 page-header text-center">
+                <h3>O que deseja avaliar?</h3>
+                <p class="lead">
+            </div> 
+        </div>	
+ 
+        <div class="row-f text-center" style="margin: 0 auto;">
+            <div class="span3">
+                <a id="btnBus" href="#"><img src="images/bus-flat.png" width="160" height="160" class="img-circle"></a>
+                <h3>Ônibus</h3><p></p>		
+            </div>
+            <div class="span3">
+                <a id="btnPonto" href="#"><img src="images/busstop-flat.png" width="160" height="160" class="img-circle"></a>
+                <h3>Ponto</h3><p></p>	
+            </div>
+        </div>
+    </div>
+ </section> 
+ <!-- / INICIO -->
+    
+<!--AVALIACAO -->
+<section id="avaliacao" class="Section-2">
+    <div class="container">
+        <div class="row">
+            <div class="span12 page-header text-center">
+                <h3>Como você avalia?</h3>
+                <p class="lead">
+            </div> 
+        </div>	
+ 
+        <div class="row-f text-center" style="margin: 0 auto;">
+            <div class="span3">
+                <a id="btnPositivo" href="#"><img src="images/like.png" width="160" height="160" class="img-circle"></a>
+                <h3>Positivo</h3><p></p>		
+            </div>
+            <div class="span3">
+                <a id="btnNegativo" href="#"><img src="images/dislike.png" width="160" height="160" class="img-circle"></a>
+                <h3>Negativo</h3><p></p>	
+            </div>
+        </div>
+        <br><br><br>
+        <p><a class="btn btn-large btn-block voltar" href="#"><i class="icon-chevron-left"></i> Voltar</a></p>
+    </div>
+ </section> 
+ <!-- / AVALIACAO -->
+    
+<!-- SELECAO ONIBUS -->
+<section id="selOnibus" class="Section-2">
+    <div class="container">
+        <div class="row">
+            <div class="span12 page-header text-center">
+                <h3>Qual é a linha que você está?</h3>
+                <div id="criteriaBusca">
+                <p class="lead"><br>
+                <input id="TxtCodigoLinha" class="form-control input-lg" type="text" placeholder="Código da linha">
+                <div class="form-inline">
+
+                <p><button id="BtnBuscarOnibus" class="btn btn-large btn-block" type="button" style="margin-left:15px;">
+                    <i class="icon-search"></i> Efetuar buscar
+                </button></p>
+                </div><br><br>
+                
+                <!--<p><a class="btn btn-large btn-block voltar" href="#">Voltar</a></p> -->
+                 </div>  
+            
+                <div id="resultadoBusca"><br><br>
+                    <div class="pricing-table blue">
+                    <div class="pricing-table-header">		
+                    <span class="heading resultCount">4 linha(s) encontrada(s)</span>
+                    <span class="price-value"><span>Resultado(s)</span></span>			   
+                    </div>
+                    <div class="pricing-table-space"></div>
+                    <div id="ltResultados" class="pricing-table-features">
+                    </div>
+                    <div class="pricing-table-sign-up">
+                     <a id="btnConfLinha" href="#" class="btn btn-large btn-block btn-info"><i class="icon-ok"></i> Confirmar</a>
+                    </div>			
+                    </div>
+                    <p><a id="refazerBusca" class="btn btn-large btn-block" href="#"><i class="icon-chevron-left"></i> Refazer busca</a></p>  
+                </div>
+                
+            </div> 
+        </div>	
+ 
+        <div id="aaa" style="">
+        </div>
+    </div>
+ </section> 
+ <!-- / SELECAO ONIBUS -->
+ 
+    
+<!--TIPO OCORRENCIA ONIBUS -->
+<section id="tOnibus" class="Section-2">
+    <div class="container">
+        <div class="row">
+            <div class="span12 page-header text-center">
+                <h3>Selecione o tipo da ocorrência</h3>
+                <p class="lead">
+            </div> 
+        </div>	
+        <p><a id="oo1" class="btn btn-large btn-block" href="#">Defeitos</a>
+        <p><a id="oo2" class="btn btn-large btn-block" href="#">Superlotado</a>
+        <p><a id="oo3" class="btn btn-large btn-block" href="#">Não parou</a>
+        <p><a id="oo4" class="btn btn-large btn-block" href="#">Falta de urbanidade</a>
+        <p><a class="btn btn-large btn-block voltar" href="#"><i class="icon-chevron-left"></i> Voltar</a></p>
+    </div>
+</section> 
+<!-- / TIPO OCORRENCIA ONIBUS -->
+    
+<!--TIPO OCORRENCIA PONTO -->
+<section id="tPonto" class="Section-2">
+    <div class="container">
+        <div class="row">
+            <div class="span12 page-header text-center">
+                <h3>Selecione o tipo da ocorrência</h3>
+                <p class="lead">
+            </div> 
+        </div>	
+        <p><a id="op1" class="btn btn-large btn-block" href="#">Sujo</a>
+        <p><a id="op2" class="btn btn-large btn-block" href="#">Superlotado</a>
+        <p><a id="op3" class="btn btn-large btn-block" href="#">Teto quebrado</a>
+        <p><a id="op4" class="btn btn-large btn-block" href="#">Banco quebrado</a>
+        <p><a id="op5" class="btn btn-large btn-block" href="#">Ônibus atrasado</a>
+        <p><a id="op6" class="btn btn-large btn-block" href="#">Mal iluminado</a>
+        <p><a class="btn btn-large btn-block voltar" href="#"><i class="icon-chevron-left"></i> Voltar</a></p>
+    </div>
+ </section> 
+ <!-- / TIPO OCORRENCIA PONTO -->
+    
+ <!--MAPA -->
+<section id="mapa" class="Section-2">
+    <div class="container">
+        <div class="row">
+            <div class="span12 page-header text-center">
+                <h3>Localização da ocorrência</h3>
+                <p class="lead">
+            </div> 
+        </div>	
+        <p><a id="btnConf" class="btn btn-large btn-block" href="#">Confirmar <i class="icon-bullhorn"></i></a>
+        <div id="mapaDiv" style=""></div>
+    </div>
+ </section> 
+ <!-- / MAPA -->
+
+ 
+<!-- RODAPE -->
+<footer id="foot-sec">
+	<div class="container">
+
+			<div class="row-fluid">
+				<div class="span12 page-header text-center">
+					<h3 class="">Fique em contato conosco</h3>	
+				</div>
+			</div>
+			<div class="row-fluid">
+				<div class="span8 offset3">
+				
+					<div class="circ-wrap">
+						<a href="#"><i class="icon-facebook icon-4x"></i></a>
+					</div>
+					<div class="circ-wrap">
+						<a href="#"><i class="icon-twitter icon-4x"></i></a>
+					</div>	
+					<div class="circ-wrap">
+						<a href="#"><i class="icon-google-plus icon-4x"></i></a>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row-fluid">
+			<hr>
+				<div class="span12 text-center">
+						<p>© 2013 Imagem</p>
+				</div>
+			</div>
+	</div>
+</footer>
+<!-- / FOOTER -->
+   
+<script src="http://js.arcgis.com/3.7/"></script>
+<script src="assets/js/fb.js" type="text/javascript"></script> 
+<script src="assets/js/jquery.js" type="text/javascript"></script> 
+<script src="assets/js/prettyCheckable.js" type="text/javascript"></script>
+<script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="assets/js/bootbox.min.js" type="text/javascript"></script>     
+<script src="assets/js/jquery.localscroll-1.2.7-min.js" type="text/javascript" ></script>
+<script src="assets/js/jquery.nicescroll.min.js" type="text/javascript"></script>
+<script src="assets/js/geolocator.js" type="text/javascript"></script> 
+<script src="assets/js/principal.js" type="text/javascript"></script>
+    
+</body>
+</html>
