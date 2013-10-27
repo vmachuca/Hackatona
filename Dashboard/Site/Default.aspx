@@ -49,9 +49,17 @@
     <!-- End JS -->
 
     <!-- CSS -->
+    <style>
+      html, body { height: 100%; width: 100%; margin: 0; overflow: hidden; }
+      #map { height: 100%; padding: 0;}
+      #footer { height: 2em; text-align: center; font-size: 1.1em; padding: 0.5em; }
+      .dj_ie .infowindow .window .top .right .user .content { position: relative; }
+      .dj_ie .simpleInfoWindow .content {position: relative;}
+    </style>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.7/js/esri/css/esri.css">
 
     <!--Frameworks-->
-
+    
     <link rel="stylesheet" type="text/css" href="resources/css/esri.css" />
     <link rel="stylesheet" type="text/css" href="resources/css/application.css" />
     <link rel="stylesheet" type="text/css" href="resources/css/application-icons.css" />
@@ -95,7 +103,7 @@
 				<div id="topMenuRight">
 					<div id="menuList">
                         <span class="headerElement" ><div id="opacitySlider" style="width:100px"></div></span>
-                        <span class="headerIconButton" onclick="avlBL.Window.AverageTime.Show()"><img src="resources/images/header/buttons/clock_24x24.png" /></span>
+                        <span class="headerIconButton" onclick="avlBL.Window.Average.Show()"><img src="resources/images/header/buttons/clock_24x24.png" /></span>
                         <span class="headerIconButton" onclick="avalBL.Window.Chart.Show()"><img src="resources/images/header/buttons/chart_24x24.png" /></span>
                         <span class="headerIconButton" onclick="utils.Window.HeatMap.Show()"><img src="resources/images/header/buttons/fire_24x24.png" /></span>
                         <span class="headerIconButton" onclick="utils.Window.About.Show()"><img src="resources/images/header/buttons/about_24x24.png" /></span>
@@ -110,5 +118,22 @@
         
 	</div>
     <!-- End JavaScript -->
+
+    <div data-dojo-type="dijit.layout.BorderContainer" 
+         data-dojo-props="design:'headline'" 
+         style="width:100%;height:100%;">
+
+      <div id="Div1" 
+           data-dojo-type="dijit.layout.ContentPane" 
+           data-dojo-props="region:'center'"></div>
+
+      <div id="footer"
+           data-dojo-type="dijit.layout.ContentPane" 
+           data-dojo-props="region:'bottom'">
+        Click point to view/create/delete attachments.
+      </div>
+    </div>
+
+
 </body>
 </html>

@@ -18,7 +18,7 @@ function AVL() {
                         params.unit = esri.tasks.GeometryService.UNIT_METER;
 
                         ///Creating the geometry service and buffering
-                        var geometryService = new esri.tasks.GeometryService('http://192.168.245.53/ArcGIS/rest/services/Geometry/GeometryServer');
+                        var geometryService = new esri.tasks.GeometryService('http://10.1.1.213/ArcGIS/rest/services/Geometry/GeometryServer');
                         geometryService.buffer(params, function (geometries) {
 
                             ///The query parameters
@@ -29,7 +29,7 @@ function AVL() {
                             query.outFields = ["*"];
 
                             ///The query task
-                            var queryTask = new esri.tasks.QueryTask('http://192.168.245.53/ArcGIS/rest/services/ONIBUS/MapServer/0');
+                            var queryTask = new esri.tasks.QueryTask('http://10.1.1.213/ArcGIS/rest/services/ONIBUS/MapServer/0');
                             queryTask.execute(query, function (data) {
 
                                 //Getting the features

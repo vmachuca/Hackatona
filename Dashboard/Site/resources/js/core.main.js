@@ -47,9 +47,15 @@ dojo.require("esri.toolbars.draw");
 //dojo.require("esri.TimeExtent");
 //dojo.require("esri.dijit.TimeSlider");
 
+dojo.require("esri.dijit.editing.AttachmentEditor");
+dojo.require("dojo.parser");
+dojo.require("dojo.dom");
+dojo.require("dijit.layout.BorderContainer");
+dojo.require("dijit.layout.ContentPane");
+dojo.require("dojo.domReady!");
+
 ///Setting the culture
 Globalize.culture('pt-BR');
-
 
 ///Business variabels
 var avalBL = new Avaliacao();
@@ -71,6 +77,8 @@ var standBy = null;
 var bingMapsLayer = null;
 var busStopLayer = null;
 var avalLayer = null;
+
+var attachmentEditor = null;
 
 ///The onload initialization
 dojo.addOnLoad(init);
@@ -126,7 +134,7 @@ function initializeLayers() {
         displayOnPan: true
     });
 
-    busStopLayer = new esri.layers.FeatureLayer('http://192.168.245.53/ArcGIS/rest/services/ONIBUS/MapServer/1', {
+    busStopLayer = new esri.layers.FeatureLayer('http://10.1.1.213/ArcGIS/rest/services/ONIBUS/MapServer/1', {
         mode: esri.layers.FeatureLayer.MODE_ONDEMAND,
         visible: false,
         label: 'Pontos de Ônibus'
@@ -138,6 +146,69 @@ function initializeLayers() {
         label: 'Avaliação',
         outFields: ["*"]
     });
+
+    //---------------
+    //Attachments
+
+    dojo.connect(avalLayer, "onClick", function (evt) {
+
+
+        if (evt.graphic.attributes['TIPO_AVALIACAO'] == 'OK') return;
+
+        var objectId = evt.graphic.attributes[avalLayer.objectIdField];
+
+        var url = String.format('http://services2.arcgis.com/Yqsg32QMynROaTjv/arcgis/rest/services/avaliacao/FeatureServer/0/{0}/attachments?f=json', objectId);
+
+        var content =
+        '<table style="width: 100%" border="0">' +
+            '<tr>' +
+                '<th>Facebook</th>' +
+                '<td><a href="https://www.facebook.com/' + evt.graphic.attributes['ID_USUARIO'] + '">' + 'Ir para página' + '</a></td>' +
+            '</tr>' +
+            '<tr>' +
+                '<th>Tipo</th>' +
+                '<td>' + evt.graphic.attributes['TIPO_OCO'] + '</td>' +
+            '</tr>' +
+            '<tr>' +
+                '<th>Problema</th>' +
+                '<td>' + evt.graphic.attributes['SUBTIPO_OCO'] + '</td>' +
+            '</tr>' +
+            '{0}' +
+        '</table>';
+
+        ///Requesting
+        utils.Ajax.Get(
+            {
+                dataType: 'jsonp',
+                url: url
+            },
+            function (json) {
+
+                if (json.attachmentInfos.length > 0) {
+
+                    var imgSrc = String.format('http://services2.arcgis.com/Yqsg32QMynROaTjv/arcgis/rest/services/avaliacao/FeatureServer/0/{0}/attachments/{1}', objectId, json.attachmentInfos[0].id);
+
+                    content = String.format(content,
+                    '<tr>' +
+                        '<td colspan="2"><img src="' + imgSrc + '"></td>' +
+                    '</tr>');
+                }
+                else
+                    content = String.format(content, '');
+
+                map.infoWindow.resize(350, 200);
+                map.infoWindow.setContent(content);
+                map.infoWindow.show(evt.screenPoint, map.getInfoWindowAnchor(evt.screenPoint));
+            },
+            function (error) {
+
+                map.infoWindow.resize(350, 200);
+                map.infoWindow.setContent(content);
+                map.infoWindow.show(evt.screenPoint, map.getInfoWindowAnchor(evt.screenPoint));
+            });
+    });
+
+    //---------------
 
     //create renderer
     var renderer = new esri.renderers.UniqueValueRenderer(esri.symbols.SimpleMarkerSymbol(), "TIPO_AVALIACAO");
@@ -155,7 +226,7 @@ function initializeLayers() {
         map.addLayer(bingMapsLayer);
         map.addLayer(busStopLayer);
         map.addLayer(avalLayer);
-        map.addLayer(new esri.layers.FeatureLayer('http://192.168.245.53/ArcGIS/rest/services/ONIBUS/MapServer/0', {
+        map.addLayer(new esri.layers.FeatureLayer('http://10.1.1.213/ArcGIS/rest/services/ONIBUS/MapServer/0', {
             mode: esri.layers.FeatureLayer.MODE_ONDEMAND,
             visible: true,
             label: 'Paradas'
@@ -170,7 +241,7 @@ function initializeEvents() {
 
     ///Map
     //dojo.connect(map, "onClick", avlBL.Window.AS.Events.mapclick);
-    dojo.connect(busStopLayer, "click", avlBL.Window.Average.Events.LayerClick);
+    //dojo.connect(busStopLayer, "click", avlBL.Window.Average.Events.LayerClick);
     dojo.connect(busStopLayer, "onClick", avlBL.Window.Average.Events.LayerClick);
     
 

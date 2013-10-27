@@ -18,7 +18,7 @@ function AVL() {
                         params.unit = esri.tasks.GeometryService.UNIT_METER;
 
                         ///Creating the geometry service and buffering
-                        var geometryService = new esri.tasks.GeometryService('http://192.168.245.53/ArcGIS/rest/services/Geometry/GeometryServer');
+                        var geometryService = new esri.tasks.GeometryService('http://10.1.1.213/ArcGIS/rest/services/Geometry/GeometryServer');
                         geometryService.buffer(params, function (geometries) {
 
                             ///The query parameters
@@ -29,7 +29,7 @@ function AVL() {
                             query.outFields = ["*"];
 
                             ///The query task
-                            var queryTask = new esri.tasks.QueryTask('http://192.168.245.53/ArcGIS/rest/services/ONIBUS/MapServer/0');
+                            var queryTask = new esri.tasks.QueryTask('http://10.1.1.213/ArcGIS/rest/services/ONIBUS/MapServer/0');
                             queryTask.execute(query, function (data) {
 
                                 //Getting the features
@@ -125,7 +125,7 @@ function AVL() {
                                 averageTime = averageTime / analysisFeatures.length;
 
                                 if (averageTime < 60)
-                                    $('#' + avlBL.Window.Average.Controls.MessageAverrageTime).html(averageTime + ' segundos');
+                                    $('#' + avlBL.Window.Average.Controls.MessageAverrageTime).html(new Number((averageTime)).toFixed(2) + ' segundos');
                                 else
                                     $('#' + avlBL.Window.Average.Controls.MessageAverrageTime).html(new Number((averageTime / 60)).toFixed(2) + ' minutos');
 
@@ -157,36 +157,43 @@ function AVL() {
                                     if (dictionatyFeatures[key].length == 2) {
 
                                         var a = Globalize.parseDate(dictionatyFeatures[key][0].attributes['DT_AVL'], 'yyyy-MM-dd HH:mm:ss.000');
-                                        var b = Globalize.parseDate(dictionatyFeatures[key][1].attributes['DT_AVL'], 'yyyy-MM-dd HH:mm:ss.000');
+                                        var b = Globalize.parseDate(dictionatyFeatures[key][1].attributes['DT_AVL'], 'yyyy-MM-dd HH:mm:ss.000')
 
-                                        var hor = (Globalize.format(b, 'HH') - Globalize.format(a, 'HH'));
-                                        var min = (Globalize.format(b, 'mm') - Globalize.format(a, 'mm')) / 60;
-                                        var seg = Globalize.format(b, 'ss') - Globalize.format(a, 'ss') / 60 / 60;
+                                        var hor = (Globalize.format(b, 'HH') - Globalize.format(a, 'HH')) * 60 * 60;
+                                        var min = (Globalize.format(b, 'mm') - Globalize.format(a, 'mm')) * 60;
+                                        var seg = Globalize.format(b, 'ss') - Globalize.format(a, 'ss');
 
-                                        var totalHours = hor + min + seg;
+                                        var totalSeconds = hor + min + seg;
 
-                                        var xa = dictionatyFeatures[key][0].geometry.x;
-                                        var ya = dictionatyFeatures[key][0].geometry.y;
+                                        if (!(totalSeconds >= (30 * 60))) {
 
-                                        var xb = dictionatyFeatures[key][1].geometry.x;
-                                        var yb = dictionatyFeatures[key][1].geometry.y;
+                                            var totalHours = totalSeconds / 60 / 60;
 
-                                        var averageSpeedItem = function (totalHours, xa, ya, xb, yb) {
+                                            var xa = dictionatyFeatures[key][0].attributes['NR_LATITUDE_GRAU_num'];
+                                            var ya = dictionatyFeatures[key][0].attributes['NR_LONGITUDE_GRAU_num'];
 
-                                            var diffX = Math.abs(xa - xb);
-                                            var diffY = Math.abs(ya - yb);
-                                            var catX = Math.pow(diffX, 2);
-                                            var catY = Math.pow(diffY, 2);
-                                            var cats = catX + catY;
-                                            var hip = Math.sqrt(cats);
-                                            var hipKm = hip / 1000;
-                                            var hipKmPerHour = hipKm / totalHours;
+                                            var xb = dictionatyFeatures[key][1].attributes['NR_LATITUDE_GRAU_num'];
+                                            var yb = dictionatyFeatures[key][1].attributes['NR_LONGITUDE_GRAU_num'];
 
-                                            return hipKmPerHour;
+                                            var averageSpeedItem = function (totalHours, xa, ya, xb, yb) {
 
-                                        } (totalHours, xa, ya, xb, yb);
+                                                var diffX = (Math.abs(xa - xb)) * 111322;
+                                                var diffY = (Math.abs(ya - yb)) * 111322;
+                                                var catX = Math.pow(diffX, 2);
+                                                var catY = Math.pow(diffY, 2);
+                                                var cats = catX + catY;
+                                                var hip = Math.sqrt(cats);
+                                                var hipKm = hip / 1000;
+                                                var hipKmPerHour = hipKm / totalHours;
 
-                                        averageSpeedArray.push(averageSpeedItem);
+                                                return hipKmPerHour;
+
+                                            } (totalHours, xa, ya, xb, yb);
+
+                                            if (isFinite(averageSpeedItem))
+                                                averageSpeedArray.push(averageSpeedItem);
+
+                                        }
                                     }
                                 });
 
@@ -197,7 +204,7 @@ function AVL() {
                                 });
 
                                 averageSpeedFinal = averageSpeedSum / averageSpeedArray.length;
-                                $('#' + avlBL.Window.Average.Controls.MessageAverrageSpeed).html(averageSpeedFinal + ' km/h');
+                                $('#' + avlBL.Window.Average.Controls.MessageAverrageSpeed).html(averageSpeedFinal.toFixed(2) + ' km/h');
                             },
                             function (err, a, b) {
 
@@ -218,8 +225,10 @@ function AVL() {
             Show: function () {
 
                 ///The content
-                var content = '<input style="width:100%" type="checkbox" id="' + avlBL.Window.Average.Controls.Button + '" /><label for="' + avlBL.Window.Average.Controls.Button + '">' + busStopLayer._params.label + '</label><br/>Habilite a camada de Pontos de ônibus, e clique para consultar o tempo médio de espera e a velocidade média<br/><br/>' +
+                var content = '<input style="width:100%" type="checkbox" id="' + avlBL.Window.Average.Controls.Button + '" /><label for="' + avlBL.Window.Average.Controls.Button + '">' + busStopLayer._params.label + '</label><br/>'+
+                              'Habilite a camada de Pontos de ônibus, e clique para consultar o tempo médio de espera.<br/><br/>' +
                               'Tempo médio: <span id="' + avlBL.Window.Average.Controls.MessageAverrageTime + '" style="font-weight: bold"/><br/><br/>' +
+                              'Clique em um trecho de linha para consultar a velocidade média.<br/><br/>' +
                               'Velocidade média: <span id="' + avlBL.Window.Average.Controls.MessageAverrageSpeed + '" style="font-weight: bold"/>';
 
                 ///The post function
@@ -237,8 +246,8 @@ function AVL() {
 
                 ///window options
                 var options = {
-                    height: 200,
-                    width: 300,
+                    height: 270,
+                    width: 400,
                     titleIcon: 'resources/images/header/buttons/clock_24x24.png',
                     float: 'right',
                     x: 2,
